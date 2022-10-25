@@ -41,9 +41,25 @@ function buildTree(array){
 }
 
 
-//
-function insertNode(value){
+//take a value v and inserts it as node into tree t
+function insertNode(v,t){
+    if(v < t.data){
+        if(t.left != null){
+            return insertNode(v,t.left);
+        } else {
+            t.left = nodeFactory(v);
+            return;
+        }
+    } else {
+        if(t.right != null){
+            return insertNode(v,t.right);
+        } else {
+            t.right = nodeFactory(v);
+            return;
+        }
+    }
 
+    
 }
 
 //find value in tree t
@@ -65,13 +81,10 @@ function find(value,t){
     } 
 }
 
-
 //
-function deleteNode(value){
+function deleteNode(value,tree){
 
 }
-
-
 
 //function from the odin project
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -84,13 +97,15 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
 }
 
-
-
-let arr = [1,1,2,3,5,4,6,7];
+let arr = [1,1,5,6,7];
 let tree = TreeFactory(arr);
 //console.log(tree);
 //console.log(tree.root)
 prettyPrint(tree.root);
 //console.log(tree.root.data)
-let foundNode = find(5,tree.root);
-console.log(foundNode,'foundNode');
+//let foundNode = find(5,tree.root);
+//console.log(foundNode,'foundNode');
+insertNode(8,tree.root);
+insertNode(3,tree.root);
+insertNode(4,tree.root);
+prettyPrint(tree.root);
