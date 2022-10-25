@@ -46,6 +46,26 @@ function insertNode(value){
 
 }
 
+//find value in tree t
+function find(value,t){
+    if(t.data === value){
+        return t;
+    } else if (t.data < value){
+        if(t.right != null){
+            return find(value,t.right);
+        } else {
+            return 'value not in tree';
+        }
+    } else if (t.data>value) {
+        if(t.left != null){
+            return find(value,t.left); 
+        } else {
+            return 'value not in tree';
+        }
+    } 
+}
+
+
 //
 function deleteNode(value){
 
@@ -62,12 +82,15 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node.left !== null) {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
-  }
+}
 
 
 
 let arr = [1,1,2,3,5,4,6,7];
 let tree = TreeFactory(arr);
 //console.log(tree);
+//console.log(tree.root)
 prettyPrint(tree.root);
-
+//console.log(tree.root.data)
+let foundNode = find(5,tree.root);
+console.log(foundNode,'foundNode');
