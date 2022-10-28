@@ -43,6 +43,15 @@ function buildTree(array, start, end) {
 
 //take a value v and inserts it as node into tree t
 function insertNode(v, t) {
+  if(v==t.data){
+    // console.log('already in tree');
+    //don't add node that's already in tree
+    /**
+     * couldn't find info on if duplicates occuring from
+     * insert were allowed or not so I decided to make it not allowed
+     */
+    return;
+  }
   if (v < t.data) {
     if (t.left != null) {
       return insertNode(v, t.left);
@@ -415,26 +424,35 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
-// console.log(tree2, "tree2");
-console.log("before delete");
+// console.log(find(3,tree2.root));
+
+//"testing" insert
+insertNode(8, tree2.root);
+insertNode(9,tree2.root);
 prettyPrint(tree2.root);
-// deleteNode(5,tree2.root); // removing root node with right side that has two children notes
-// deleteNode(6,tree2.root); // remove next root with right side that has one child
-// deleteNode(7,tree2.root); //remove next root with right side that has no children
-// deleteNode(8,tree2.root); // remove next root with no right side
-// deleteNode(3, tree2.root); // remove left child node that has two children nodes
-// prettyPrint(tree2.root);
-// deleteNode(4, tree2.root); // remove left child node that has one child
-// prettyPrint(tree2.root);
-// deleteNode(2,tree2.root); // remove left child that is a leaft node
-// deleteNode(7,tree2.root); // remove right child that has two children
-// prettyPrint(tree2.root);
-// deleteNode(8,tree2.root); // remove right child that has one child
-// prettyPrint(tree2.root);
-// deleteNode(6,tree2.root); // remove right child that is a leaf node
-console.log("after delete");
+
+
+//"testing" delete
 // console.log(tree2, "tree2");
-prettyPrint(tree2.root);
+// console.log("before delete");
+// prettyPrint(tree2.root);
+// // deleteNode(5,tree2.root); // removing root node with right side that has two children notes
+// // deleteNode(6,tree2.root); // remove next root with right side that has one child
+// // deleteNode(7,tree2.root); //remove next root with right side that has no children
+// // deleteNode(8,tree2.root); // remove next root with no right side
+// // deleteNode(3, tree2.root); // remove left child node that has two children nodes
+// // prettyPrint(tree2.root);
+// // deleteNode(4, tree2.root); // remove left child node that has one child
+// // prettyPrint(tree2.root);
+// // deleteNode(2,tree2.root); // remove left child that is a leaft node
+// // deleteNode(7,tree2.root); // remove right child that has two children
+// // prettyPrint(tree2.root);
+// // deleteNode(8,tree2.root); // remove right child that has one child
+// // prettyPrint(tree2.root);
+// // deleteNode(6,tree2.root); // remove right child that is a leaf node
+// console.log("after delete");
+// // console.log(tree2, "tree2");
+// prettyPrint(tree2.root);
 
 // let arr3 = [1,2,3,4,5];
 // let tree3 = TreeFactory(arr3);
@@ -445,41 +463,3 @@ prettyPrint(tree2.root);
 // console.log('after delete');
 // console.log(tree3,'tree2');
 // prettyPrint(tree3.root);
-
-// deleteNode(4,tree3.root); // removing root node
-// console.log('after delete');
-// console.log(tree3,'tree2');
-// prettyPrint(tree3.root);
-
-//console.log(tree);
-//console.log(tree.root)
-// prettyPrint(tree.root);
-//console.log(tree.root.data)
-//let foundNode = find(5,tree.root);
-//console.log(foundNode,'foundNode');
-
-//todo fix insertNode, should not allow duplicates in the tree.
-//insertNode(8, tree.root);
-
-//insertNode(3, tree.root);
-//insertNode(4, tree.root);
-
-// console.log(tree.root.data)
-// deleteNode(6,tree.root); ////removing root node
-
-// deleteNode(4, tree.root); //leaf node deleation
-//deleteNode(7,tree.root); //has a single child node
-// deleteNode(8,tree.roott)
-
-// console.log(tree.root,'tree.root');
-
-// prettyPrint(tree.root);
-
-//remove node with one child
-//deleteNode(7,tree.root);
-
-//remove sub trees or leaf nodes
-// deleteNode(7,tree.root);
-// deleteNode(5,tree.root)
-
-//prettyPrint(tree.root);
