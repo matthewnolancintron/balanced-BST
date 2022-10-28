@@ -43,7 +43,7 @@ function buildTree(array, start, end) {
 
 //take a value v and inserts it as node into tree t
 function insertNode(v, t) {
-  if(v==t.data){
+  if (v == t.data) {
     // console.log('already in tree');
     //don't add node that's already in tree
     /**
@@ -103,8 +103,10 @@ function deleteNode(v, t) {
     }
 
     //has only one child
-    if ( (t.left != null && t.right == null) ||
-    (t.right != null && t.left == null)) {
+    if (
+      (t.left != null && t.right == null) ||
+      (t.right != null && t.left == null)
+    ) {
       // console.log("has one child");
       // set current node as child node
       //and delete child node
@@ -113,7 +115,6 @@ function deleteNode(v, t) {
         t.right = null;
         t = temp;
       } else {
-      
         let temp = t.left;
         let tempNewLeft;
         let tempNewRight;
@@ -363,14 +364,11 @@ function deleteNode(v, t) {
       }
 
       nodeToTheRight.data = minInRightSubTree.data;
-      
 
       // minInRightSubTree = null;
-  
-      return;
-    
-    }
 
+      return;
+    }
   } else {
     // check other side of the tree based on v
     //and the current node's value
@@ -400,6 +398,67 @@ function deleteNode(v, t) {
   }
 }
 
+// takes as input another function as a parameter
+function levelOrder(root, someFunction) {
+  /**
+   * should traverse the tree in breadth-first level order
+   * and provide each node as argument ot the provided function
+   * can be done via iteration or recursion (try both)
+   *
+
+   *
+   * tip:
+   * use an array acting as a queue to keep track of all the
+   * child nodes that you yet to traverse and add new ones to the list
+   *
+   */
+  if (root == null) {
+    return;
+  } else {
+    //shift to remove first element in the array
+    //push to add element to the end of the array
+    //(FIFO)
+    let queue = [];
+    let storage = [];
+    queue.push(root);
+
+    let visitedNode;
+
+    while(queue.length!= 0){
+      visitedNode = queue.shift();
+      
+      //should return an array of values if no function is given
+      if(someFunction == undefined){
+        //save node into the storage to be returned later
+        storage.push(visitedNode);
+      } else {
+        //call function with visted node passed into it
+        someFunction(visitedNode);
+      }
+
+      //if left or right child are not null add node to the queue
+      if(visitedNode.left != null){
+        queue.push(visitedNode.left);
+      }
+
+      if(visitedNode.right != null){
+        queue.push(visitedNode.right);
+      }
+
+      // console.log(visitedNode.data);
+    }
+
+    if(storage.length != 0){
+      // console.log(storage);
+      return storage;
+    }
+  }
+}
+
+function printNodeData(node){
+  console.log(node.data);
+}
+
 //function from the odin project
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.right !== null) {
@@ -424,13 +483,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
+prettyPrint(tree2.root);
+// let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
+// console.log(arrayOfLevelOrderNodes);
+levelOrder(tree2.root,printNodeData) // level order with function 
 // console.log(find(3,tree2.root));
 
 //"testing" insert
-insertNode(8, tree2.root);
-insertNode(9,tree2.root);
-prettyPrint(tree2.root);
-
+// insertNode(8, tree2.root);
+// insertNode(9,tree2.root);
+// prettyPrint(tree2.root);
 
 //"testing" delete
 // console.log(tree2, "tree2");
