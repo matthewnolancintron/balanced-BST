@@ -455,7 +455,6 @@ function levelOrder(root, someFunction) {
   }
 }
 
-//Todo: inorder, preorder, postorder
 /**
  * inorder, preorder, and postorder functions
  * that accept an optional function as a parameter.
@@ -481,32 +480,109 @@ function inorder(root, someFunction) {
 
   let node = root;
   //repeat steps while there  are nodes left in the stack
-    while (stack.length != 0) {
-      console.log(node,'node');
-      while (node.left != null) {
-        node = node.left;
-        stack.push(node);
-      }
-
-      visit = stack.pop();
-      console.log(visit,'vist');
-      console.log(visit.right,'visit.right')
-      visitedNodes.push(visit);
-      console.log(visitedNodes,"visitedNodes");
-
-      if (visit.right != null) {
-        console.log('?')
-        node = visit.right;
-        console.log(node,'node from right')
-        stack.push(node);
-      }
+  while (stack.length != 0) {
+    console.log(node, "node");
+    while (node.left != null) {
+      node = node.left;
+      stack.push(node);
     }
 
-    if(someFunction != undefined){
-      visitedNodes.forEach(someFunction);
-    } else {
-      return visitedNodes;
+    visit = stack.pop();
+    console.log(visit, "vist");
+    console.log(visit.right, "visit.right");
+    visitedNodes.push(visit);
+    console.log(visitedNodes, "visitedNodes");
+
+    if (visit.right != null) {
+      console.log("?");
+      node = visit.right;
+      console.log(node, "node from right");
+      stack.push(node);
     }
+  }
+
+  if (someFunction != undefined) {
+    visitedNodes.forEach(someFunction);
+  } else {
+    return visitedNodes;
+  }
+}
+
+/**
+ *
+ * preorder traversal
+ * traverse the root
+ * then traverse the leftsubtree
+ * then traverse the rightsubtree
+ * root to left subtree to right subtree
+ * root,left,right
+ *
+ * 2, 3, 4, 5, 6, 7, 8
+ *
+ * 5,3,2,4,7,6,8
+ *
+ */
+function preorder(root, someFunction) {
+  let node = root;
+  let stack = [];
+  let visitedNodes = [];
+  stack.push(root);
+  visitedNodes.push(root);
+
+  while (stack.length != 0) {
+    // console.log(node.data,'node.data');
+    while (node.left != null) {
+      node = node.left;
+      stack.push(node);
+      visitedNodes.push(node);
+    }
+
+    // console.log(node.data,stack.map(x=>x.data),'before pop');
+    node = stack.pop();
+    // console.log(node.data,stack.map(x=>x.data),'after pop');
+
+    if (node.right != null) {
+      node = node.right;
+      stack.push(node);
+      visitedNodes.push(node);
+    }
+
+    // console.log(visitedNodes.map(x=>x.data),'visitedNodes');
+  }
+  
+  if (someFunction != undefined) {
+    visitedNodes.forEach(someFunction);
+  } else {
+    return visitedNodes;
+  }
+
+  // a recursive method
+  // if (node === null) {
+  //   return;
+  // } else {
+  //   console.log(node.data);
+  //   preorder(node.left);
+  //   preorder(node.right);
+  //   return node;
+  // }
+}
+
+// postorder
+/**
+ * traverse left subtree
+ * then right subtree
+ * then visit the root
+ *
+ * left subtree to right subtree then root.
+ *
+ * left,right,root
+ */
+function postorder(root, someFunction) {
+  /**
+   *
+   */
+  let stack = [];
+  let visitedNodes = [];
 }
 
 function printNodeData(node) {
@@ -539,12 +615,13 @@ let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
 // console.log(tree2);
 prettyPrint(tree2.root);
+preorder(tree2.root, printNodeData);
 // let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
 // console.log(arrayOfLevelOrderNodes);
 // levelOrder(tree2.root,printNodeData) // level order with function
-inorder(tree2.root, printNodeData); // 2 3 4 5 6 7 8
-let inorderTree2 = inorder(tree2.root);
-console.log(inorderTree2);
+//inorder(tree2.root, printNodeData); // 2 3 4 5 6 7 8
+//let inorderTree2 = inorder(tree2.root);
+//console.log(inorderTree2);
 
 //"testing" insert
 // insertNode(8, tree2.root);
