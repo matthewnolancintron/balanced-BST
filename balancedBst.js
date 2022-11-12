@@ -578,31 +578,31 @@ function postorder(root, someFunction) {
   /**
    * thanks to this site's tutorial:
    * https://www.digitalocean.com/community/tutorials/js-tree-traversal
-   * 
-   * I was able to figure out how to use recursion
+   *
+   * I was able to understand how to use recursion
    * within the function rather than rely on a stack
    * and an itterative process
-   * 
+   *
    * by making a function within postorder function
    * and using recursion with the nested function.
-   * 
+   *
    * my first attemps were to have postorder call itself
    * and it worked to simply traverse the tree but
    * when trying to keep track of the nodes it traversed
    * the visitedNodes array would be set back to a fresh
    * array on each recursive call.
-   * 
-   * Now I can see more uses for recursion.
-   * 
+   *
+   * now I can see more uses for recursion and myself using it more.
+   *
    */
   let visitedNodes = [];
   let current = root;
-  
+
   let traverse = (node) => {
-    if(node.left) traverse(node.left);
-    if(node.right) traverse(node.right);
+    if (node.left) traverse(node.left);
+    if (node.right) traverse(node.right);
     visitedNodes.push(node);
-  }
+  };
 
   traverse(current);
 
@@ -611,9 +611,78 @@ function postorder(root, someFunction) {
   } else {
     return visitedNodes;
   }
- 
-  
+}
 
+function height(node) {
+  let numEdgesRightSide = 0;
+  let numEdgesLeftSide = 0;
+
+  let traverseRight = (node) => {
+    if(node.right){
+      numEdgesRightSide++;
+      traverseRight(node.right);
+    }
+  };
+
+  let traverseLeft = (node) =>{
+    if(node.left){
+      numEdgesLeftSide++;
+      traverseLeft(node.left)
+    }
+  }
+
+  traverseRight(node);
+  traverseLeft(node);
+
+  console.log(numEdgesLeftSide)
+  console.log(numEdgesRightSide);
+
+  return numEdgesLeftSide > numEdgesRightSide ? numEdgesLeftSide : numEdgesRightSide; 
+
+}
+
+function depth(node,root){
+  let numEdgesRightSide = 0;
+  let numEdgesLeftSide = 0;
+  let depthOfNode = [];
+
+  let traverseRight = (n) => {
+    if(n.right){
+      console.log(n.data,'right')
+      if(n.data != node.data){
+        numEdgesRightSide++;
+        traverseRight(n.right);
+      }
+      if(n.data === node.data){
+        depthOfNode.push(numEdgesRightSide);
+      } else {
+        numEdgesRightSide = 0;
+      }
+    }
+  };
+
+  let traverseLeft = (n) => {
+    if(n.left){
+      console.log(n.data,'left')
+      if(n.data != node.data){
+        numEdgesLeftSide++;
+        traverseLeft(n.left);
+      }
+      if(n.data === node.data){
+        depthOfNode.push(numEdgesLeftSide);
+      } else {
+        numEdgesLeftSide = 0;
+      }
+    }
+  };
+
+  
+  traverseRight(root);
+  traverseLeft(root);
+
+ console.log(depthOfNode);
+ return depthOfNode[0];
+  
 }
 
 function printNodeData(node) {
@@ -647,7 +716,13 @@ let tree2 = TreeFactory(arr2);
 // console.log(tree2);
 prettyPrint(tree2.root);
 // preorder(tree2.root, printNodeData);
-postorder(tree2.root,printNodeData);
+// postorder(tree2.root, printNodeData);
+// let heightOfNode = height(tree2.root);
+// console.log(heightOfNode);
+
+depth(tree2.root.left.left,tree2.root);
+
+
 // let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
 // console.log(arrayOfLevelOrderNodes);
 // levelOrder(tree2.root,printNodeData) // level order with function
