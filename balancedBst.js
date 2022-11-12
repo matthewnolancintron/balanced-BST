@@ -576,7 +576,24 @@ function preorder(root, someFunction) {
  */
 function postorder(root, someFunction) {
   /**
-   *
+   * thanks to this site's tutorial:
+   * https://www.digitalocean.com/community/tutorials/js-tree-traversal
+   * 
+   * I was able to figure out how to use recursion
+   * within the function rather than rely on a stack
+   * and an itterative process
+   * 
+   * by making a function within postorder function
+   * and using recursion with the nested function.
+   * 
+   * my first attemps were to have postorder call itself
+   * and it worked to simply traverse the tree but
+   * when trying to keep track of the nodes it traversed
+   * the visitedNodes array would be set back to a fresh
+   * array on each recursive call.
+   * 
+   * Now I can see more uses for recursion.
+   * 
    */
   let visitedNodes = [];
   let current = root;
