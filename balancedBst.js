@@ -509,18 +509,12 @@ function inorder(root, someFunction) {
 }
 
 /**
- *
  * preorder traversal
  * traverse the root
  * then traverse the leftsubtree
  * then traverse the rightsubtree
  * root to left subtree to right subtree
  * root,left,right
- *
- * 2, 3, 4, 5, 6, 7, 8
- *
- * 5,3,2,4,7,6,8
- *
  */
 function preorder(root, someFunction) {
   let node = root;
@@ -549,7 +543,7 @@ function preorder(root, someFunction) {
 
     // console.log(visitedNodes.map(x=>x.data),'visitedNodes');
   }
-  
+
   if (someFunction != undefined) {
     visitedNodes.forEach(someFunction);
   } else {
@@ -576,13 +570,33 @@ function preorder(root, someFunction) {
  * left subtree to right subtree then root.
  *
  * left,right,root
+ *
+ * 2,3,4,5,6,7,8
+ * postOrder:2,4,3,6,8,7,5
  */
 function postorder(root, someFunction) {
   /**
    *
    */
-  let stack = [];
   let visitedNodes = [];
+  let current = root;
+  
+  let traverse = (node) => {
+    if(node.left) traverse(node.left);
+    if(node.right) traverse(node.right);
+    visitedNodes.push(node);
+  }
+
+  traverse(current);
+
+  if (someFunction != undefined) {
+    visitedNodes.forEach(someFunction);
+  } else {
+    return visitedNodes;
+  }
+ 
+  
+
 }
 
 function printNodeData(node) {
@@ -615,7 +629,8 @@ let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
 // console.log(tree2);
 prettyPrint(tree2.root);
-preorder(tree2.root, printNodeData);
+// preorder(tree2.root, printNodeData);
+postorder(tree2.root,printNodeData);
 // let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
 // console.log(arrayOfLevelOrderNodes);
 // levelOrder(tree2.root,printNodeData) // level order with function
