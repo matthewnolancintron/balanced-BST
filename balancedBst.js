@@ -618,72 +618,100 @@ function height(node) {
   let numEdgesLeftSide = 0;
 
   let traverseRight = (node) => {
-    if(node.right){
+    if (node.right) {
       numEdgesRightSide++;
       traverseRight(node.right);
     }
   };
 
-  let traverseLeft = (node) =>{
-    if(node.left){
+  let traverseLeft = (node) => {
+    if (node.left) {
       numEdgesLeftSide++;
-      traverseLeft(node.left)
+      traverseLeft(node.left);
     }
-  }
+  };
 
   traverseRight(node);
   traverseLeft(node);
 
-  console.log(numEdgesLeftSide)
+  console.log(numEdgesLeftSide);
   console.log(numEdgesRightSide);
 
-  return numEdgesLeftSide > numEdgesRightSide ? numEdgesLeftSide : numEdgesRightSide; 
-
+  return numEdgesLeftSide > numEdgesRightSide
+    ? numEdgesLeftSide
+    : numEdgesRightSide;
 }
 
-function depth(node,root){
-  let numEdgesRightSide = 0;
-  let numEdgesLeftSide = 0;
+
+/**
+ * depth traverses every path in the tree
+ * starting from the root.
+ * it count up every edge traversed while
+ * looking for a match with the input node
+ * if match is found the value counted up so far
+ * in the path is stored into an array depthOfNode
+ * if no match is found by time the end of path is reached
+ * a leaf node then the count is reset and the next path
+ * is then searched, repeating the process until done.
+ */
+function depth(node, root) {
+  //tracks number of edges in a given path
+  let numEdgesInPath = 0;
+
+  //used to store the number of edges when traversed to
+  //the matching node
   let depthOfNode = [];
 
-  let traverseRight = (n) => {
-    if(n.right){
-      console.log(n.data,'right')
-      if(n.data != node.data){
-        numEdgesRightSide++;
-        traverseRight(n.right);
+  //recursivly traverses the tree from the input node n
+  let traverseTree = (n) => {
+    if (n.left) {
+      numEdgesInPath++;
+      // console.log(n.data, "node");
+      // console.log(numEdgesInPath,'edges in path');
+      if (n.data === node.data) {
+        depthOfNode.push(numEdgesInPath);
       }
-      if(n.data === node.data){
-        depthOfNode.push(numEdgesRightSide);
+      traverseTree(n.left);
+    } 
+
+    if (n.right) {
+      numEdgesInPath++;
+      // console.log(n.data, "node");
+      // console.log(numEdgesInPath,'edges in path');
+      if (n.data === node.data) {
+        depthOfNode.push(numEdgesInPath);
+      }
+      traverseTree(n.right);
+    } 
+
+    if(!n.right & !n.left){
+      numEdgesInPath++;
+      // console.log(n.data, "leaf");
+      // console.log(numEdgesInPath,'edges in path');
+      if (n.data === node.data) {
+        depthOfNode.push(numEdgesInPath);
       } else {
-        numEdgesRightSide = 0;
+        numEdgesInPath = 0;
       }
     }
+
   };
 
-  let traverseLeft = (n) => {
-    if(n.left){
-      console.log(n.data,'left')
-      if(n.data != node.data){
-        numEdgesLeftSide++;
-        traverseLeft(n.left);
-      }
-      if(n.data === node.data){
-        depthOfNode.push(numEdgesLeftSide);
-      } else {
-        numEdgesLeftSide = 0;
-      }
-    }
-  };
+  //check right side of tree
+  if(root.right){
+    traverseTree(root.right);
+  }
 
-  
-  traverseRight(root);
-  traverseLeft(root);
+  //check left side of tree
+  if(root.left){
+    traverseTree(root.left);
+  }
 
- console.log(depthOfNode);
- return depthOfNode[0];
-  
+  // return first element of depth of node.
+  return depthOfNode[0];
 }
+
+
 
 function printNodeData(node) {
   console.log(node.data);
@@ -720,7 +748,12 @@ prettyPrint(tree2.root);
 // let heightOfNode = height(tree2.root);
 // console.log(heightOfNode);
 
-depth(tree2.root.left.left,tree2.root);
+// let nodeA = tree2.root.left;
+// let nodeB = tree2.root.right;
+// let depthOfNodeA = depth(nodeA,tree2.root);
+// let depthOfNodeB = depth(nodeB,tree2.root);
+// console.log(`node a is ${nodeA.data},`,'depth of node A is',depthOfNodeA);
+// console.log(`node b is ${nodeB.data}, depth of node b is ${depthOfNodeB}`);
 
 
 // let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
