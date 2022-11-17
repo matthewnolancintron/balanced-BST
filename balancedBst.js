@@ -848,15 +848,17 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 // console.log(tree1,'tree1');
 // prettyPrint(tree1.root);
 
-let arr2 = [2, 3, 4, 5, 6, 7, 8];
+// let arr2 = [2, 3, 4, 5, 6, 7, 8];
+let arr2 = [2, 3, 4, 5, 6, 7, 8,9,10];
+
 let tree2 = TreeFactory(arr2);
 // console.log(tree2);
 prettyPrint(tree2.root);
 
-insertNode(9,tree2.root);
-insertNode(12,tree2.root);
-insertNode(10,tree2.root);
-prettyPrint(tree2.root);
+// insertNode(9,tree2.root);
+// insertNode(12,tree2.root);
+// insertNode(10,tree2.root);
+// prettyPrint(tree2.root);
 
 /**
  * error when building left side of the tree.
@@ -865,8 +867,8 @@ prettyPrint(tree2.root);
  * and right side is less than parent node.
  */
 
-tree2 = rebalance(tree2.root);
-prettyPrint(tree2.root);
+// tree2 = rebalance(tree2.root);
+// prettyPrint(tree2.root);
 
 
 // preorder(tree2.root, printNodeData);
