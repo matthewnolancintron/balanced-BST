@@ -30,11 +30,7 @@ function buildTree(array, start, end) {
   }
   //remove duplicates, using "sets" and sort with array.sort()
   let sortedArray = [...new Set(array)].sort();
-  // console.log(sortedArray, "sortedArray");
-  // console.log(start, "start");
-  // console.log(end, "end");
   let mid = parseInt((start + end) / 2);
-  // console.log(mid, "mid");
   let node = nodeFactory(sortedArray[mid]);
   node.left = buildTree(array, start, mid - 1);
   node.right = buildTree(array, mid + 1, end);
@@ -456,18 +452,6 @@ function levelOrder(root, someFunction) {
 }
 
 /**
- * inorder, preorder, and postorder functions
- * that accept an optional function as a parameter.
- *
- * Each of these functions should
- * traverse the tree in their respective
- * depth-first order and yield each node
- * to the provided function given as an argument.
- * The functions should return
- * an array of values if no function is given.
- */
-
-/**
  * Inorder traversal
  * traverse left subtree
  * then visit root or closest parent to left most node
@@ -804,7 +788,7 @@ function isBalanced(root) {
 function rebalance(root){
   let nodes = [];
   let traverse = n => {
-    // console.log(n.data,'n');
+  
     nodes.push(n.data);
     if(n.left){
       traverse(n.left)
@@ -815,10 +799,8 @@ function rebalance(root){
     }
   }
   traverse(root);
-  // console.log(nodes);
+
   let rebalancedTree = TreeFactory(nodes);
-  // console.log(rebalancedTree);
-  // prettyPrint(rebalancedTree.root);
   return rebalancedTree;
 }
 
@@ -837,95 +819,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-// let arr1 = [1,2,3,4];
-// let tree1 = TreeFactory(arr1);
-// console.log(tree1,'tree1');
-// console.log('before delete')
-// prettyPrint(tree1.root);
-// deleteNode(2,tree1.root); // removing root node
-// // deleteNode(4,tree1.root); // removing leaf node
-// console.log('after delete');
-// console.log(tree1,'tree1');
-// prettyPrint(tree1.root);
-
-// let arr2 = [2, 3, 4, 5, 6, 7, 8];
-let arr2 = [2, 3, 4, 5, 6, 7, 8,9,10];
-
-let tree2 = TreeFactory(arr2);
-// console.log(tree2);
-prettyPrint(tree2.root);
-
-// insertNode(9,tree2.root);
-// insertNode(12,tree2.root);
-// insertNode(10,tree2.root);
-// prettyPrint(tree2.root);
-
-/**
- * error when building left side of the tree.
- * after rebalance:
- * left most node is greater than parent node
- * and right side is less than parent node.
- */
-
-// tree2 = rebalance(tree2.root);
-// prettyPrint(tree2.root);
-
-
-// preorder(tree2.root, printNodeData);
-// postorder(tree2.root, printNodeData);
-// let heightOfNode = height(tree2.root);
-// console.log(heightOfNode);
-// insertNode(8, tree2.root);
-// console.log(isBalanced(tree2.root));
-
-
-// let nodeA = tree2.root.left;
-// let nodeB = tree2.root.right;
-// let depthOfNodeA = depth(nodeA,tree2.root);
-// let depthOfNodeB = depth(nodeB,tree2.root);
-// console.log(`node a is ${nodeA.data},`,'depth of node A is',depthOfNodeA);
-// console.log(`node b is ${nodeB.data}, depth of node b is ${depthOfNodeB}`);
-
-// let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
-// console.log(arrayOfLevelOrderNodes);
-// levelOrder(tree2.root,printNodeData) // level order with function
-//inorder(tree2.root, printNodeData); // 2 3 4 5 6 7 8
-//let inorderTree2 = inorder(tree2.root);
-//console.log(inorderTree2);
-
-//"testing" insert
-// insertNode(8, tree2.root);
-// insertNode(9,tree2.root);
-// prettyPrint(tree2.root);
-
-//"testing" delete
-// console.log(tree2, "tree2");
-// console.log("before delete");
-// prettyPrint(tree2.root);
-// // deleteNode(5,tree2.root); // removing root node with right side that has two children notes
-// // deleteNode(6,tree2.root); // remove next root with right side that has one child
-// // deleteNode(7,tree2.root); //remove next root with right side that has no children
-// // deleteNode(8,tree2.root); // remove next root with no right side
-// // deleteNode(3, tree2.root); // remove left child node that has two children nodes
-// // prettyPrint(tree2.root);
-// // deleteNode(4, tree2.root); // remove left child node that has one child
-// // prettyPrint(tree2.root);
-// // deleteNode(2,tree2.root); // remove left child that is a leaft node
-// // deleteNode(7,tree2.root); // remove right child that has two children
-// // prettyPrint(tree2.root);
-// // deleteNode(8,tree2.root); // remove right child that has one child
-// // prettyPrint(tree2.root);
-// // deleteNode(6,tree2.root); // remove right child that is a leaf node
-// console.log("after delete");
-// // console.log(tree2, "tree2");
-// prettyPrint(tree2.root);
-
-// let arr3 = [1,2,3,4,5];
-// let tree3 = TreeFactory(arr3);
-// console.log(tree3,'tree3');
-// console.log('before delete');
-// prettyPrint(tree3.root);
-// deleteNode(3,tree3.root); // removing root node
-// console.log('after delete');
-// console.log(tree3,'tree2');
-// prettyPrint(tree3.root);
+export {TreeFactory,levelOrder,find,deleteNode,depth,height,prettyPrint,isBalanced,preorder,postorder,inorder,insertNode,rebalance,printNodeData};

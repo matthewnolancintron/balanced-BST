@@ -1,0 +1,22 @@
+{
+  "name": "bst",
+  "type":"module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "balancedBst.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewnolancintron/balanced-BST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewnolancintron/balanced-BST/issues"
+  },
+  "homepage": "https://github.com/matthewnolancintron/balanced-BST#readme"
+
+}
