@@ -642,7 +642,6 @@ function height(node) {
     : numEdgesRightSide;
 }
 
-
 /**
  * depth traverses every path in the tree
  * starting from the root.
@@ -672,7 +671,7 @@ function depth(node, root) {
         depthOfNode.push(numEdgesInPath);
       }
       traverseTree(n.left);
-    } 
+    }
 
     if (n.right) {
       numEdgesInPath++;
@@ -682,9 +681,9 @@ function depth(node, root) {
         depthOfNode.push(numEdgesInPath);
       }
       traverseTree(n.right);
-    } 
+    }
 
-    if(!n.right & !n.left){
+    if (!n.right & !n.left) {
       numEdgesInPath++;
       // console.log(n.data, "leaf");
       // console.log(numEdgesInPath,'edges in path');
@@ -694,16 +693,15 @@ function depth(node, root) {
         numEdgesInPath = 0;
       }
     }
-
   };
 
   //check right side of tree
-  if(root.right){
+  if (root.right) {
     traverseTree(root.right);
   }
 
   //check left side of tree
-  if(root.left){
+  if (root.left) {
     traverseTree(root.left);
   }
 
@@ -711,7 +709,96 @@ function depth(node, root) {
   return depthOfNode[0];
 }
 
+//takes root node and checks if tree is balanced
+//returns true or false.
+function isBalanced(root) {
 
+  /**
+   * TraverseAndCheck
+   * recursive DFS traversal sub function:
+   * 
+   * //base case:
+   *  null node with height of -1
+   *  and balance status of true
+   * 
+   * //recursive step:
+   *  check if it has a left node
+   *  if it does ask that node for it's height
+   *  and it's balance status via recursion
+   *  do the same for the right side of the tree
+   *  
+   *  after a response from base case is reached
+   *  exection going back up the call stack will
+   *  the nodes will recieve the results of it's
+   *  left and right sub trees knowing if they are
+   *  balanced and the heights
+   *  it will use the heights to calculate it's
+   *  own height and it's own balance status
+   *  to pass on to it's parent node until
+   *  finally reaching the root node
+   *  where the root will know if it's
+   *  trees are balanced or not.
+   *  and it's own height
+   *   
+   *  
+   * 
+   * 
+   */
+  let traverseAndCheck = (n) => {
+      //recursive step when it's not a leaf node
+      let leftSubTreeBalanceStatusAndHeight;
+      let rightSubTreeBalanceStatusAndHeight;
+      let heightOfCurrentNode;
+      let balanceStatus;
+
+      //recursive steps
+      //ask left sub tree if it's sub trees are balanced and what
+      //it's height is
+      if (n.left) {
+        leftSubTreeBalanceStatusAndHeight = traverseAndCheck(n.left);
+      } else {
+        leftSubTreeBalanceStatusAndHeight = {
+          height: -1,
+          isBalanced: true,
+        };
+      }
+
+      if (n.right) {
+        rightSubTreeBalanceStatusAndHeight = traverseAndCheck(n.right);
+      } else {
+        rightSubTreeBalanceStatusAndHeight = {
+          height: -1,
+          isBalanced: true,
+        };
+      }
+
+      heightOfCurrentNode =
+        Math.max(
+          leftSubTreeBalanceStatusAndHeight.height,
+          rightSubTreeBalanceStatusAndHeight.height
+        ) + 1;
+      
+      if(
+        leftSubTreeBalanceStatusAndHeight.isBalanced
+        &&
+        rightSubTreeBalanceStatusAndHeight.isBalanced
+      ){
+        balanceStatus =
+          Math.abs(
+            leftSubTreeBalanceStatusAndHeight.height -
+              rightSubTreeBalanceStatusAndHeight.height
+          ) <= 1;
+      } else {
+        balanceStatus = false;
+      }
+
+      return {
+        height: heightOfCurrentNode,
+        isBalanced: balanceStatus,
+      };
+  };
+  return traverseAndCheck(root).isBalanced;
+}
 
 function printNodeData(node) {
   console.log(node.data);
@@ -742,11 +829,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
 // console.log(tree2);
+// insertNode(9,tree2.root);
+// insertNode(10,tree2.root);
 prettyPrint(tree2.root);
 // preorder(tree2.root, printNodeData);
 // postorder(tree2.root, printNodeData);
 // let heightOfNode = height(tree2.root);
 // console.log(heightOfNode);
+// insertNode(8, tree2.root);
+// console.log(isBalanced(tree2.root));
+
 
 // let nodeA = tree2.root.left;
 // let nodeB = tree2.root.right;
@@ -754,7 +846,6 @@ prettyPrint(tree2.root);
 // let depthOfNodeB = depth(nodeB,tree2.root);
 // console.log(`node a is ${nodeA.data},`,'depth of node A is',depthOfNodeA);
 // console.log(`node b is ${nodeB.data}, depth of node b is ${depthOfNodeB}`);
-
 
 // let arrayOfLevelOrderNodes = levelOrder(tree2.root) //level order with out function
 // console.log(arrayOfLevelOrderNodes);
