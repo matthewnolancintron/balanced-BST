@@ -800,6 +800,28 @@ function isBalanced(root) {
   return traverseAndCheck(root).isBalanced;
 }
 
+//start a #11 write a rebalance function
+function rebalance(root){
+  let nodes = [];
+  let traverse = n => {
+    // console.log(n.data,'n');
+    nodes.push(n.data);
+    if(n.left){
+      traverse(n.left)
+    }
+
+    if(n.right){
+      traverse(n.right);
+    }
+  }
+  traverse(root);
+  // console.log(nodes);
+  let rebalancedTree = TreeFactory(nodes);
+  // console.log(rebalancedTree);
+  // prettyPrint(rebalancedTree.root);
+  return rebalancedTree;
+}
+
 function printNodeData(node) {
   console.log(node.data);
 }
@@ -829,9 +851,24 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 let arr2 = [2, 3, 4, 5, 6, 7, 8];
 let tree2 = TreeFactory(arr2);
 // console.log(tree2);
-// insertNode(9,tree2.root);
-// insertNode(10,tree2.root);
 prettyPrint(tree2.root);
+
+insertNode(9,tree2.root);
+insertNode(12,tree2.root);
+insertNode(10,tree2.root);
+prettyPrint(tree2.root);
+
+/**
+ * error when building left side of the tree.
+ * after rebalance:
+ * left most node is greater than parent node
+ * and right side is less than parent node.
+ */
+
+tree2 = rebalance(tree2.root);
+prettyPrint(tree2.root);
+
+
 // preorder(tree2.root, printNodeData);
 // postorder(tree2.root, printNodeData);
 // let heightOfNode = height(tree2.root);
