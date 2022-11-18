@@ -464,28 +464,28 @@ function inorder(root, someFunction) {
   let stack = [];
   let visitedNodes = [];
   let visit;
-  
+
   stack.push(root);
 
   let node = root;
   //repeat steps while there  are nodes left in the stack
   while (stack.length != 0) {
-    console.log(node, "node");
+    // console.log(node, "node");
     while (node.left != null) {
       node = node.left;
       stack.push(node);
     }
 
     visit = stack.pop();
-    console.log(visit, "vist");
-    console.log(visit.right, "visit.right");
+    // console.log(visit, "vist");
+    // console.log(visit.right, "visit.right");
     visitedNodes.push(visit);
-    console.log(visitedNodes, "visitedNodes");
+    // console.log(visitedNodes, "visitedNodes");
 
     if (visit.right != null) {
-      console.log("?");
+      // console.log("?");
       node = visit.right;
-      console.log(node, "node from right");
+      // console.log(node, "node from right");
       stack.push(node);
     }
   }
@@ -789,7 +789,7 @@ function isBalanced(root) {
   return traverseAndCheck(root).isBalanced;
 }
 
-//start a #11 write a rebalance function
+//
 function rebalance(root){
   let nodes = [];
   let traverse = n => {
