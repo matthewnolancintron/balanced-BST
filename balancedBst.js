@@ -33,9 +33,6 @@ function buildTree(array, start, end) {
 
   //remove duplicates, using "sets" and sort with array.sort()
   let sortedArray = [...new Set(array)].sort((a,b)=>a-b); 
-
-
-  console.log(sortedArray,'sorted array')
   let mid = parseInt((start + end) / 2);
   let node = nodeFactory(sortedArray[mid]);
   node.left = buildTree(array, start, mid - 1);
@@ -466,6 +463,8 @@ function levelOrder(root, someFunction) {
 function inorder(root, someFunction) {
   let stack = [];
   let visitedNodes = [];
+  let visit;
+  
   stack.push(root);
 
   let node = root;
